@@ -1,5 +1,7 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'application'
+    id 'java'
 }
 
 repositories {
@@ -10,6 +12,12 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
     implementation 'com.lmax:disruptor:4.0.0'
+}
+
+jar {
+    manifest {
+        attributes 'Multi-Release': 'true'
+    }
 }
 
 java {
