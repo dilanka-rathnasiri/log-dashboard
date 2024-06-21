@@ -6,14 +6,32 @@ package org.example;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Random;
+
 public class App {
     public static Logger logger = LogManager.getLogger();
 
-    public String getGreeting() {
-        return "Hello World!";
+    public static String generateString(Random random) {
+        int leftLimit = 48;
+        int rightLimit = 122;
+        int targetStringLength = 10;
+
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(
+                        StringBuilder::new,
+                        StringBuilder::appendCodePoint,
+                        StringBuilder::append
+                )
+                .toString();
     }
 
     public static void main(String[] args) {
-        logger.info(new App().getGreeting());
+        Random random = new Random();
+        for (int i = 0; i < 10_000; i++) {
+            logger.info(generateString(random));
+        }
     }
 }

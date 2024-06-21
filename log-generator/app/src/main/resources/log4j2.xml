@@ -4,14 +4,17 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d [%p] %c{1} - %m%n"/>
         </Console>
-        <RandomAccessFile name="LogFile" fileName="logs/app.log" immediateFlush="false" append="false">
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="logs/app.log" filePattern="logs/app-%i.log">
             <PatternLayout pattern="%d [%p] %c{1} - %m%n"/>
-        </RandomAccessFile>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 KB"/>
+            </Policies>
+        </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="Console" />
-            <AppenderRef ref="LogFile"/>
+            <AppenderRef ref="RollingRandomAccessFile"/>
         </Root>
     </Loggers>
 </Configuration>
